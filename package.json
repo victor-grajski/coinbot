@@ -1,5 +1,5 @@
 {
-  "name": "crypto-weekly",
+  "name": "crypto-bot",
   "type": "module",
   "version": "1.0.0",
   "description": "",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/victor-grajski/crypto-weekly.git"
+    "url": "git+https://github.com/victor-grajski/crypto-bot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/victor-grajski/crypto-weekly/issues"
+    "url": "https://github.com/victor-grajski/crypto-bot/issues"
   },
-  "homepage": "https://github.com/victor-grajski/crypto-weekly#readme",
+  "homepage": "https://github.com/victor-grajski/crypto-bot#readme",
   "dependencies": {
     "axios": "^0.24.0",
     "coinbase-pro-node": "^3.1.0",
