@@ -18,8 +18,12 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.5.1
 
+      - uses: actions/checkout@v1
+
       - name: NPM or Yarn install with caching
         uses: bahmutov/npm-install@v1.6.0
+
+      - run: npm t
 
       - name: Run Bot
         env:
