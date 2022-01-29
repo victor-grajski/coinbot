@@ -12,7 +12,28 @@ const client = new CoinbasePro(auth);
 
 const AMOUNT = 1.00;
 
-const coins = ['BTC', 'ETH'];
+const coins = [
+    'BTC', 
+    'ETH', 
+    'DAI', 
+    'ADA', 
+    'AVAX', 
+    'MANA', 
+    'DOT', 
+    'SUSHI', 
+    'UNI', 
+    'LINK', 
+    'DESO', 
+    'DOGE', 
+    'MKR', 
+    'POWR', 
+    'MATIC', 
+    'WBTC', 
+    'AAVE', 
+    'UMA', 
+    'FET', 
+    'ICP'
+];
 
 const placeOrder = async coin => {
     return client.rest.order.placeOrder({
