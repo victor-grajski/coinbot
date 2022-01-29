@@ -1,1 +1,1 @@
-# crypto-weekly
+# crypto-bot
