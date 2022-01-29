@@ -2,7 +2,7 @@ name: CI
 
 on:
   schedule:
-  - cron: "55 10 * * 6"
+  - cron: "00 11 * * 6"
 
   workflow_dispatch:
 
@@ -21,11 +21,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Set Environment Variables
+      - name: Run Bot
         env:
           API_KEY: ${{secrets.API_KEY}}
           API_SECRET: ${{secrets.API_SECRET}}
           PASSPHRASE: ${{secrets.PASSPHRASE}}
-
-      - name: Run Bot
         run: npm start
