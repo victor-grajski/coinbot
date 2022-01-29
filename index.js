@@ -66,7 +66,7 @@ const main = async () => {
     
         let orderSettled = await getOrderStatus(orderID);
         while (!orderSettled) {
-            setTimeout(1000);
+            await new Promise(r => setTimeout(r, 1000));
             orderSettled = await getOrderStatus(orderID);
         }
     }
