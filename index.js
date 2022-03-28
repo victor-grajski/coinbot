@@ -32,7 +32,9 @@ const coins = [
     'AAVE', 
     'UMA', 
     'FET', 
-    'ICP'
+    'ICP',
+    'APE',
+    'SOL'
 ];
 
 const getProfileID = async () => {
@@ -75,7 +77,7 @@ const getPaymentMethods = async () => {
 const depositFromPaymentMethod = async (profileID, paymentMethodID) => {
     let payload = {
         profile_id: profileID,
-        amount: '18.00',
+        amount: '20.00',
         payment_method_id: paymentMethodID,
         currency: 'USD'
     };
