@@ -10,32 +10,80 @@ const auth = {
   useSandbox: false,
 };
 
+const TEST_MODE = false
+
 const client = new CoinbasePro(auth);
 
-const AMOUNT = 1.00;
-
 const coins = [
-    'BTC', 
-    'ETH', 
-    'DAI', 
-    'ADA', 
-    'AVAX', 
-    'MANA', 
-    'DOT', 
-    'SUSHI', 
-    'UNI', 
-    'LINK', 
-    'DOGE', 
-    'MKR', 
-    'POWR', 
-    'MATIC', 
-    'AAVE', 
-    'UMA', 
-    'FET', 
-    'ICP',
-    'APE',
-    'SOL'
+    {
+        coin: 'BTC',
+        amount: 4.00
+    }, 
+    {
+        coin: 'ETH',
+        amount: 3.00
+    },
+    {
+        coin: 'DAI',
+        amount: 1.00
+    },
+    {
+        coin: 'ADA',
+        amount: 1.00
+    },
+    {
+        coin: 'AVAX',
+        amount: 1.00
+    },
+    {
+        coin: 'MANA',
+        amount: 1.00
+    }, 
+    {
+        coin: 'DOT',
+        amount: 1.00
+    },
+    {
+        coin: 'SUSHI',
+        amount: 1.00
+    },
+    {
+        coin: 'UNI',
+        amount: 1.00
+    },
+    {
+        coin: 'DOGE',
+        amount: 1.00
+    }, 
+    {
+        coin: 'POWR',
+        amount: 1.00
+    },
+    {
+        coin: 'MATIC',
+        amount: 1.00
+    },
+    {
+        coin: 'ICP',
+        amount: 1.00
+    },
+    {
+        coin: 'APE',
+        amount: 1.00
+    },
+    {
+        coin: 'SOL',
+        amount: 1.00
+    },
 ];
+
+const getDepositAmount = async () => {
+    let sum = 0
+    for (let coin of coins) {
+        sum += coin.amount
+    }
+    return sum.toFixed(2).toString()
+}
 
 const getProfileID = async () => {
     return client.rest.profile.listProfiles()
@@ -77,7 +125,7 @@ const getPaymentMethods = async () => {
 const depositFromPaymentMethod = async (profileID, paymentMethodID) => {
     let payload = {
         profile_id: profileID,
-        amount: '20.00',
+        amount: await getDepositAmount(),
         payment_method_id: paymentMethodID,
         currency: 'USD'
     };
@@ -98,6 +146,7 @@ const depositFromPaymentMethod = async (profileID, paymentMethodID) => {
         'CB-ACCESS-SIGN': signedRequest.signature, 
         'CB-ACCESS-TIMESTAMP': `${signedRequest.timestamp}` 
     };
+    if (TEST_MODE) return
     return axios.post("https://api.exchange.coinbase.com/deposits/payment-method", payload, config)
     .then(response => {
         return response.status;
@@ -111,8 +160,8 @@ const placeOrder = async coin => {
     return client.rest.order.placeOrder({
         type: 'market',
         side: 'buy',
-        product_id: `${coin}-USD`,
-        funds: AMOUNT,
+        product_id: `${coin.coin}-USD`,
+        funds: coin.amount,
     })
     .then(response => {
         return response.id;
@@ -125,6 +174,7 @@ const placeOrder = async coin => {
 const getOrderStatus = async orderID =>{
     return client.rest.order.getOrder(orderID)
     .then(response => {
+        if (!response) return false
         return response.settled;
     })
     .catch(error => {
@@ -139,7 +189,7 @@ const main = async () => {
 
     const depositStatus = await depositFromPaymentMethod(profileID, paymentMethodID);
 
-    if (depositStatus === 200) {
+    if (depositStatus === 200 || TEST_MODE) {
         for (let coin of coins) {
             const orderID = await placeOrder(coin);
         
