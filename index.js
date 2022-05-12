@@ -17,7 +17,7 @@ const client = new CoinbasePro(auth);
 const coins = [
     {
         coin: 'BTC',
-        amount: 15.00
+        amount: 20.00
     }, 
     {
         coin: 'ETH',
