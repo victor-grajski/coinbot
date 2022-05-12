@@ -17,64 +17,24 @@ const client = new CoinbasePro(auth);
 const coins = [
     {
         coin: 'BTC',
-        amount: 4.00
+        amount: 10.00
     }, 
     {
         coin: 'ETH',
-        amount: 3.00
+        amount: 5.00
     },
     {
-        coin: 'DAI',
-        amount: 1.00
+        coin: 'SOL',
+        amount: 2.00
     },
     {
-        coin: 'ADA',
-        amount: 1.00
-    },
-    {
-        coin: 'AVAX',
-        amount: 1.00
-    },
-    {
-        coin: 'MANA',
-        amount: 1.00
-    }, 
-    {
-        coin: 'DOT',
-        amount: 1.00
-    },
-    {
-        coin: 'SUSHI',
-        amount: 1.00
-    },
-    {
-        coin: 'UNI',
-        amount: 1.00
+        coin: 'APE',
+        amount: 2.00
     },
     {
         coin: 'DOGE',
         amount: 1.00
     }, 
-    {
-        coin: 'POWR',
-        amount: 1.00
-    },
-    {
-        coin: 'MATIC',
-        amount: 1.00
-    },
-    {
-        coin: 'ICP',
-        amount: 1.00
-    },
-    {
-        coin: 'APE',
-        amount: 1.00
-    },
-    {
-        coin: 'SOL',
-        amount: 1.00
-    },
 ];
 
 const getDepositAmount = async () => {
