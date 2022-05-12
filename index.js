@@ -17,24 +17,16 @@ const client = new CoinbasePro(auth);
 const coins = [
     {
         coin: 'BTC',
-        amount: 10.00
+        amount: 15.00
     }, 
     {
         coin: 'ETH',
-        amount: 5.00
+        amount: 3.00
     },
     {
         coin: 'SOL',
         amount: 2.00
     },
-    {
-        coin: 'APE',
-        amount: 2.00
-    },
-    {
-        coin: 'DOGE',
-        amount: 1.00
-    }, 
 ];
 
 const getDepositAmount = async () => {
