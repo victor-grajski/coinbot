@@ -133,6 +133,8 @@ const main = async () => {
 
     const depositStatus = await depositFromPaymentMethod(profileID, paymentMethodID);
 
+    // TODO: verify funds available
+
     if (depositStatus === 200 || TEST_MODE) {
         for (let coin of coins) {
             const orderID = await placeOrder(coin);
