@@ -17,7 +17,7 @@ const client = new CoinbasePro(auth);
 const coins = [
     {
         coin: 'BTC',
-        amount: 25.00
+        amount: 10.00
     }
 ];
 
@@ -39,6 +39,15 @@ const getProfileID = async () => {
     });
 };
 
+const getUSDAccountID = async () => {
+    return client.rest.account.listAccounts()
+    .then(response => {
+        return response.find(x => x.currency === 'USD').id;
+    })
+    .catch(error => {
+        console.log(error);
+    });
+};
 
 const getPaymentMethods = async () => {
     let requestSetup = {
@@ -100,6 +109,16 @@ const depositFromPaymentMethod = async (profileID, paymentMethodID) => {
     });
 };
 
+const verifyFundsAvailable = async accountID => {
+    return client.rest.account.getAccount(accountID)
+    .then(response => {
+        return response.balance >= coins[0].amount;
+    })
+    .catch(error => {
+        console.log(error);
+    });
+};
+
 const placeOrder = async coin => {
     return client.rest.order.placeOrder({
         type: 'market',
@@ -129,13 +148,23 @@ const getOrderStatus = async orderID =>{
 const main = async () => {
     const profileID = await getProfileID();
 
+    const usdAccountID = await getUSDAccountID();
+
     const paymentMethodID = await getPaymentMethods();
 
     const depositStatus = await depositFromPaymentMethod(profileID, paymentMethodID);
 
-    // TODO: verify funds available
-
+    let fundsAvailable = false;
     if (depositStatus === 200 || TEST_MODE) {
+        fundsAvailable = await verifyFundsAvailable(usdAccountID);
+
+        while (!fundsAvailable) {
+            await new Promise(r => setTimeout(r, 1000));
+            fundsAvailable = await verifyFundsAvailable(usdAccountID);
+        }
+    }
+
+    if (fundsAvailable || TEST_MODE) {
         for (let coin of coins) {
             const orderID = await placeOrder(coin);
         
