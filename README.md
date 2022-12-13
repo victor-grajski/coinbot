@@ -1,1 +1,1 @@
-# crypto-bot
+# coinbot
